@@ -3,7 +3,57 @@
   margin: 0;
 }
 
+html {
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 body {
   margin: 0;
   font-family: "Karla", sans-serif;
+  background-color: #F5F7FB;
+  background-image: 
+    url(../public/images/blob_left.png), 
+    url(../public/images/blob_right.png);
+  background-position: left bottom, right top;
+  background-repeat: no-repeat, no-repeat;
+  color: #293264;
+}
+
+main, .start {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.start--descrioption {
+  margin-top: 7px;
+}
+
+.start--button {
+  background-color: #4D5B9E;
+  width: 193px;
+  height: 52px;
+  border-radius: 15px;
+  border: none;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  color: #F5F7FB;
+  margin-top: 29px;
+  transition: all 0.2s;
+}
+
+.start--button:hover {
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.start--button:active {
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 1);
 }
