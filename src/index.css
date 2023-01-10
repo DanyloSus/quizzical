@@ -48,6 +48,7 @@ main, .start {
   color: #F5F7FB;
   margin-top: 29px;
   transition: all 0.2s;
+  cursor: pointer;
 }
 
 .start--button:hover {
@@ -56,4 +57,38 @@ main, .start {
 
 .start--button:active {
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 1);
+}
+
+.question {
+  min-width: 550px;
+  min-height: 550px;
+  margin: 25px 0;
+}
+
+.question--answers {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.answers--button {
+  max-width: 150px;
+  background-color: initial;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid #4D5B9E;
+  padding: 5px 15px;
+}
+
+.answers--button:active {
+  background-color: #D6DBF5;
+  border: none;
+  color: #293264;
+  padding: 6px 16px;
+}
+
+.question--line {
+  margin-top: 15px;
+  border: 1px solid #DBDEF0;
 }
