@@ -3,7 +3,9 @@ import React from "react"
 export default function Question(props) {
     return(
         <div className="question">
-            <h4 className="question--text">{props.question}</h4>
+            <h4 className="question--text">{
+                decodeURIComponent(props.question)
+            }</h4>
             <div className="question--answers">
                 <button className="answers--button">{props.correct_answer}</button>
                 <button className="answers--button">{props.incorrect_answer[0]}</button>

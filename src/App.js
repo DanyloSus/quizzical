@@ -4,7 +4,7 @@ import Question from "./components/Question"
 
 export default function App() {
   const [inGame, setInGame] = React.useState(false)
-  const [questions, setQuestions] = React.useState()
+  const [questions, setQuestions] = React.useState([])
 
   React.useEffect(() => {
     fetch("https://opentdb.com/api.php?amount=5&type=multiple")
@@ -12,12 +12,29 @@ export default function App() {
       .then(data => setQuestions(data.results))
   }, [])
 
-  function handleStart() {
-    setInGame(oldValue => !oldValue)
-    console.log(inGame)
-    console.log(questions)
+  //https://stackoverflow.com/questions/1912501/unescape-html-entities-in-javascript
+  function htmlDecode(input) {
+    var doc = new DOMParser().parseFromString(input, "text/html");
+    return doc.documentElement.textContent;
   }
 
+  const questionsElements = questions.map(item => {
+    return(
+      <Question 
+        question={htmlDecode(item.question)}
+        correct_answer={htmlDecode(item.correct_answer)}
+        incorrect_answer={htmlDecode(item.incorrect_answers)}
+      />
+    )}
+  )
+
+  function handleStart() {
+    setInGame(oldValue => !oldValue)
+    console.log(questions[1])
+    console.log(questions)
+    console.log(questionsElements[1])
+    console.log(questionsElements)
+  }
 
   return(
     <main>
@@ -26,11 +43,9 @@ export default function App() {
         <Start 
           handleStart={handleStart}
         /> :
-        <Question 
-          question={questions[0].question}
-          correct_answer={questions[0].correct_answer}
-          incorrect_answer={questions[0].incorrect_answers}
-        />
+        <div>
+          {questionsElements}
+        </div>
       }
     </main>
   )
