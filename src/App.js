@@ -15,6 +15,7 @@ export default function App() {
   const [inResults, setInResults] = React.useState(false)
   const [questions, setQuestions] = React.useState([])
   const [userForm, setUserForm] = React.useState({})
+  const [correctAnswers, setCorrectAnswers] = React.useState(0)
 
   React.useEffect(() => {
     fetch("https://opentdb.com/api.php?amount=5&type=multiple")
@@ -51,6 +52,7 @@ export default function App() {
         question={item.question}
         correct_answer={item.correct_answer}
         answers={answers}
+        user_answer={userForm[item.question]}
         key={questions.indexOf(item)}
         disabled={true}
       />
@@ -64,19 +66,24 @@ export default function App() {
 
   function handleSubmit(event) {
     event.preventDefault()
-    console.log(userForm[questions[0].question] === questions[0].correct_answer)
+    for (let i = 0; i < 5; i++) {
+      if (questions[i].correct_answer === userForm[questions[i].question]) {
+        setCorrectAnswers(oldResults => oldResults++)
+      }
+    }
+    console.log(correctAnswers)
     setInResults(prevValue => !prevValue)
   }
 
   function handleChange(event) {
     const { name, value } = event.target
-    console.log(value)
     setUserForm(prevData => {
       return {
         ...prevData,
         [name]: value
       }
     })
+    console.log(userForm)
   }
 
   return (
@@ -93,6 +100,10 @@ export default function App() {
             </form> :
             <div>
               {resultsElements}
+              <div className="bottom--results">
+                <h3 className="scores">You scored {correctAnswers}/5 correct answers</h3>
+                <button className="submit">Play again</button>
+              </div>
             </div>
       }
     </main>

@@ -7,26 +7,37 @@ export default function Question(props) {
         return doc.documentElement.textContent;
     }
 
-    console.log(props.disabled)
-
     const answers = props.answers.map(answer => (
         <div key={answer}>
             <input
                 type="radio"
                 name={props.question}
-                value={answer === props.correct_answer}
+                value={answer}
                 id={answer}
                 onChange={props.handleChange}
                 disabled={props.disabled}
             />
             <label
+                style={{
+                    opacity: answer !== props.correct_answer &&
+                    props.disabled ?
+                        "0.5" : "1"
+                }}
                 htmlFor={answer}
                 className={
                     props.disabled ?
-                    answer === props.correct_answer ? 
-                        "answers--button correct" : 
-                        "answers--button uncorrect" :
-                    "answers--button"
+                        answer === props.user_answer ?
+                            answer === props.correct_answer ?
+                                "answers--button correct"
+                                :
+                                "answers--button uncorrect"
+                            :
+                            answer === props.correct_answer ?
+                                "answers--button correct"
+                                :
+                                "answers--button"
+                        :
+                        "answers--button"
                 }
             >
                 {htmlDecode(answer)}
