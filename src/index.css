@@ -76,7 +76,6 @@ main,
 }
 
 .answers--button {
-  max-width: 150px;
   background-color: initial;
   border-radius: 8px;
   text-align: center;
@@ -139,11 +138,11 @@ input[type="radio"] {
   display: flex;
   align-items: center;
   justify-content: right;
-  margin: 20px 0 32px;
+  margin: 20px 0 0;
 }
 
 .bottom--results > .submit {
-  margin: 0;
+  margin: 0 15px 0 0;
 }
 
 .scores {

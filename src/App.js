@@ -66,12 +66,11 @@ export default function App() {
 
   function handleSubmit(event) {
     event.preventDefault()
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < Object.keys(userForm).length; i++) {
       if (questions[i].correct_answer === userForm[questions[i].question]) {
-        setCorrectAnswers(oldResults => oldResults++)
+        setCorrectAnswers(oldAnswers => oldAnswers+=1)
       }
     }
-    console.log(correctAnswers)
     setInResults(prevValue => !prevValue)
   }
 
@@ -83,7 +82,18 @@ export default function App() {
         [name]: value
       }
     })
-    console.log(userForm)
+  }
+
+  function changeQuestions() {
+    setInResults(oldResults => !oldResults)
+    fetch("https://opentdb.com/api.php?amount=5&type=multiple")
+      .then(res => res.json())
+      .then(data => setQuestions(data.results))
+    for (const key in userForm) {
+      delete userForm[key]
+    }
+    setCorrectAnswers(() => 0)
+    window.scrollTo(0, 0);
   }
 
   return (
@@ -98,11 +108,11 @@ export default function App() {
               {questionsElements}
               <button className="submit">Check answers</button>
             </form> :
-            <div>
+            <div className="questions">
               {resultsElements}
               <div className="bottom--results">
                 <h3 className="scores">You scored {correctAnswers}/5 correct answers</h3>
-                <button className="submit">Play again</button>
+                <button className="submit" onClick={changeQuestions}>Play again</button>
               </div>
             </div>
       }
